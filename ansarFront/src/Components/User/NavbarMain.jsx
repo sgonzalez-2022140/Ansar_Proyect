@@ -9,7 +9,7 @@ const NavbarStyled = styled.div`
   align-items: center;
   background-color: #fff;
   padding: 10px 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
   width: 100%;
   height: 6.5%;
   top: 0;
@@ -23,7 +23,7 @@ const LogoContainer = styled.div`
 `;
 
 const LogoImage = styled.img`
-  height: 40px;
+  height: 50px;
   margin-right: 10px;
 `;
 
