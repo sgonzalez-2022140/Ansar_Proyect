@@ -1,71 +1,57 @@
 import React from 'react'
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
+import Banner from '../../assets/Niños.png'
 
 const HomePageContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  
+  width: 100%;
 `;
 
-const CardContainer = styled.div`
+const BannerImage = styled.img`
+  width: 100%;  
+  max-width: 940px;  
+  height: auto; 
+  object-fit: contain; 
+  border-radius: 20px; 
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2); 
+  margin: 20px auto;  
+`;
+
+const NavigationContainer = styled.div`
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-  padding: 20px;
+  justify-content: space-around;
+  width: 100%;
+  padding: 20px 0;
 `;
 
-const Card = styled.div`
-  background-color: #ffffff;
-  width: 300px;
-  height: 300px;
-  border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.3s ease;
-
-  &:hover {
-    transform: translateY(-10px);
-  }
-`;
-
-const Icon = styled.img`
-  width: 50%;
-`;
-
-const Button = styled(NavLink)`
+const NavLinkStyled = styled(NavLink)`
   background-color: #0B8AD9;
   color: white;
   padding: 10px 20px;
   text-decoration: none;
   border-radius: 20px;
-  margin-top: 20px;
+  text-align: center;
+  width: 30%; // Ajusta el ancho según necesites
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #0675A3;
+  }
 `;
 
 export const HomePrincipal = () => {
   return (
     <HomePageContainer>
-      <h1>Bienvenidos a ANSAR</h1>
-      <CardContainer>
-        <Card>
-          <Icon src="/path-to-info-icon.png" alt="Información" />
-          <Button to="/informacion">Información</Button>
-        </Card>
-        <Card>
-          <Icon src="/path-to-services-icon.png" alt="Servicios" />
-          <Button to="/servicios">Servicios</Button>
-        </Card>
-        <Card>
-          <Icon src="/path-to-contact-icon.png" alt="Contacto" />
-          <Button to="/contacto">Contacto</Button>
-        </Card>
-      </CardContainer>
+      <BannerImage src={Banner} alt="Banner con niños" />
+      <NavigationContainer>
+        <NavLinkStyled to="/informacion">Información</NavLinkStyled>
+        <NavLinkStyled to="/servicios">Servicios</NavLinkStyled>
+        <NavLinkStyled to="/contacto">Contacto</NavLinkStyled>
+      </NavigationContainer>
     </HomePageContainer>
   );
 };
