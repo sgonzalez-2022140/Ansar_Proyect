@@ -35,7 +35,7 @@ const NavLinkStyled = styled(NavLink)`
   text-decoration: none;
   border-radius: 20px;
   text-align: center;
-  width: 30%; // Ajusta el ancho según necesites
+  width: 30%; 
   transition: background-color 0.3s ease;
 
   &:hover {
