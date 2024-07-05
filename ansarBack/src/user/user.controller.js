@@ -2,19 +2,20 @@
 
 import User from './user.model.js'
 import jwt from 'jsonwebtoken'
-import { encrypt } from '../utils/validator.js'
+import { encrypt, checkPassword } from '../utils/validator.js'
+import { generateJwt } from '../utils/jwt.js'
 
 export const userDefect = async(req,res) =>{
     try {
-        const userExists = await User.findOne({username: 'ADMININISTRADOR'})        
+        const userExists = await User.findOne({username: 'ADMINISTRADOR'})        
         if(userExists){
            console.log('usuario existente')
         }else{
-        const encryptPassword = await encrypt('ADMININISTRADOR')
+        const encryptPassword = await encrypt('ADMINISTRADOR')
         const newUser = new User({
-            name: 'ADMININISTRADOR',
-            lastname: 'ADMININISTRADOR',
-            username: 'ADMININISTRADOR',
+            name: 'ADMINISTRADOR',
+            lastname: 'ADMINISTRADOR',
+            username: 'ADMINISTRADOR',
             password: encryptPassword,                                    
             phone: '12345678',
             role: 'ADMIN',            
@@ -27,6 +28,35 @@ export const userDefect = async(req,res) =>{
     }
 } 
 
+export const login = async(req, res) => {
+    try {
+        let {account, password} = req.body
+        let user = await User.findOne({
+            $or: [
+                {username: account},
+                {email: account}
+            ]
+        })
+       if(user && await checkPassword(password, user.password)){
+            let loggedUser = {
+                uid: user._id,
+                name: user.name,
+                username: user.username,
+                role: user.role
+            }
+            let token = await generateJwt(loggedUser)
+            return res.send(
+                {message: `Welcome ${loggedUser.name}`
+                , loggedUser, token})
+        }
+        return res.status(400).send({message: `User not found`})
+    } catch (err) {
+        console.error(err);
+        return res.status(500).send({message: 'Error to login'})
+    }
+}
+
+
 export const register = async(req, res) =>{
     try {
         let data = req.body
@@ -38,10 +68,11 @@ export const register = async(req, res) =>{
         }
         let user = new User(data)
         await user.save()
-        return res.send({message: `Registered successfully,${user.nameUser} was registered`})
+        return res.send({message: `Registro creado! Bienvenido ${user.name}`})
     } catch (error) {
         console.error(error)
         if(error.keyValue.username) return res.status(400).send({message: `username ${error.keyValue.username} is alredy taken ` })
         return res.status(500).send({message: 'Failed add User', error: error})
     }
 }
+
