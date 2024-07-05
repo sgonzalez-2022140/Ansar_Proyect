@@ -1,5 +1,5 @@
 import App from "./App"
-
+import RoleBasedHome from "./Shared/RoleBasedHome"
 // /////////////////////////////// //
 // Rutas de las vistas de Usuario //
 // /////////////////////////////// //
@@ -59,29 +59,25 @@ export const routes = [
         path: '/login',
         element: <Login />
     },
+    //  PRUEBA DE MISMA RUTA //
+    {
+        path: '/ansar',
+        element: <RoleBasedHome />
+    }
+
      // //////////////////////// //
     // ///RUTAS DE ADMIN //// //
     // //////////////////////// //
-    {
-        path: '/ansar',
-        element: <AdminHome />
-    },
+    
 
 
     // //////////////////////// //
     // ///RUTAS DE DOCTOR //// //
     // //////////////////////// //
-    /*{
-        path: '/ansar',
-        element: <HomeDoctor />
-    },
-
+    
 
     // //////////////////////// //
     // //RUTAS DE TRABAJADOR // //
     // //////////////////////// //
-    {
-        path: '/ansar',
-        element: <HomeWorker />
-    }*/
+    
 ]
